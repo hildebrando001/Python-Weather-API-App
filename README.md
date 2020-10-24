@@ -11,3 +11,5 @@
 
 ## Links
 
+[Open Weather API](openweathermap.org/api)
+[List of weather condition codes](openweathermap.org/weather-conditions)

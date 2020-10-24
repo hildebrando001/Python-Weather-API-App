@@ -1,4 +1,32 @@
 from tkinter import *
+import requests
+from configparser import ConfigParser # To make use of config.ini file
+
+url = "http://api.openweathermap.org/data/2.5/weather?q={}&appid={}" # API call
+
+config_file = "config.ini"
+config = ConfigParser()
+config.read(config_file)
+api_key = config["api_key"]["key"]
+
+def get_weather(city):
+    result = requests.get(url.format(city, api_key))
+    if result:
+        json = result.json() # convert a result to a json file
+        # (City, Country, temp_celsius, temp_fahrenheit, icon, weather)
+        city = json['name']
+        country = json['sys']['country']
+        temp_kelvin = json['main']['temp']
+        temp_celsius = temp_kelvin - 273.15
+        temp_fahrenheit = ((temp_celsius * 9) / 5) + 32
+        icon = json['weather'][0]['icon']
+        weather = json['weather'][0]['main']
+        final = (city, country, temp_celsius, temp_fahrenheit, icon, weather)
+        return final
+    else:
+        return None
+
+print(get_weather('London'))
 
 def search():
     pass
