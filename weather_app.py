@@ -1,4 +1,5 @@
 from tkinter import *
+from tkinter import messagebox
 import requests
 from configparser import ConfigParser # To make use of config.ini file
 
@@ -26,18 +27,26 @@ def get_weather(city):
     else:
         return None
 
-print(get_weather('London'))
 
 def search():
-    pass
+    city = city_text.get()
+    weather = get_weather(city)
+    if weather:
+        location_lbl['text'] = f'{weather[0]}, {weather[1]}'
+        
+        temp_lbl['text'] = '{:.2f}c {:.2f}f'.format(weather[2], weather[3])
+        weather_lbl['text'] = weather[5]
+        image['bitmap'] = f'weather_icons/{weather[4]}.png'
+    else:
+        messagebox.showerror('Error', f'Cannot find city: {city}')
 
 
 app = Tk()
-app.geometry('700x350')
+app.geometry('500x250')
 app.title("Weather App")
 
 city_text  = StringVar() 
-city_entry = Entry(app, textvariable = city_text)
+city_entry = Entry(app, textvariable = city_text, justify = "center")
 city_entry.pack()
 
 search_btn = Button(app, text="Search", width=12, command=search)
