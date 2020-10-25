@@ -4,8 +4,10 @@
 
 ```bash
 * Clone repository.                                        
-    git clone 
+    git clone https://github.com/hildebrando001/Python-Weather-API-App
 
+* run App
+    python3 weather_app.py
 
 ```
 
