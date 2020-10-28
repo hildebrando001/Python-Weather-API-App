@@ -20,9 +20,8 @@ def get_weather(city):
         temp_kelvin = json['main']['temp']
         temp_celsius = temp_kelvin - 273.15
         temp_fahrenheit = ((temp_celsius * 9) / 5) + 32
-        icon = json['weather'][0]['icon']
         weather = json['weather'][0]['main']
-        final = (city, country, temp_celsius, temp_fahrenheit, icon, weather)
+        final = (city, country, temp_celsius, temp_fahrenheit, weather)
         return final
     else:
         return None
@@ -35,8 +34,7 @@ def search():
         location_lbl['text'] = f'{weather[0]}, {weather[1]}'
         
         temp_lbl['text'] = '{:.2f}c {:.2f}f'.format(weather[2], weather[3])
-        weather_lbl['text'] = weather[5]
-        image['bitmap'] = f'weather_icons/{weather[4]}.png'
+        weather_lbl['text'] = weather[4]
     else:
         messagebox.showerror('Error', f'Cannot find city: {city}')
 
@@ -54,9 +52,6 @@ search_btn.pack()
 
 location_lbl = Label(app, text="", font=("bold", 20))
 location_lbl.pack()
-
-image = Label(app, bitmap="")
-image.pack()
 
 temp_lbl = Label(app, text="")
 temp_lbl.pack()
